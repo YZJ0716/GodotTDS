@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5n862gour2ie"]
 
-[ext_resource type="Script" path="res://scenes/main.gd" id="1_t6b0v"]
+[ext_resource type="Script" uid="uid://cdj255mywwevs" path="res://scenes/main.gd" id="1_t6b0v"]
 
 [node name="Main" type="CanvasLayer"]
 script = ExtResource("1_t6b0v")
@@ -56,6 +56,7 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 2
 metadata/_edit_group_ = true
+metadata/_tab_index = 0
 
 [node name="Login" type="Button" parent="TabContainer/TapSDK"]
 custom_minimum_size = Vector2(200, 80)
@@ -203,6 +204,7 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 2
 metadata/_edit_group_ = true
+metadata/_tab_index = 1
 
 [node name="LoadSplashAD" type="Button" parent="TabContainer/TapAD"]
 custom_minimum_size = Vector2(200, 80)

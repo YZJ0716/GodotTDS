@@ -9,35 +9,35 @@ Godot plugin for supporting TapTap Developer Services
 # Version
 
 - OpenJDK 17.0.11
-- TapSDK Android 3.29.2
-- TapADN Android SDK 3.16.3.31
-- Godot 4.2.2
+- TapSDK Android 4.5.5
+- TapADN Android SDK 3.16.3.45
+- Godot 4.4
 
 # Feature
 
 ### TapSDK
 
-- [x] 登录
-- [x] 合规认证
-- [x] 内嵌动态
-- [x] 悬浮窗
-- [x] 成就系统
-- [x] 礼包系统
-- [x] 排行榜
-- [x] 云存档
-- [x] 深度链接（目前有严重缺陷，不建议使用）
+- [ ] 登录
+- [ ] 合规认证
+- [ ] 内嵌动态
+- [ ] 悬浮窗
+- [ ] 成就系统
+- [ ] 礼包系统
+- [ ] 排行榜
+- [ ] 云存档
+- [ ] 深度链接
 
 ### TapAD
 
-- [x] 开屏广告
-- [x] 激励广告
-- [x] 横幅广告（目前只支持竖屏显示）
-- [x] 信息流广告（目前只支持模板渲染）
-- [x] 插屏广告
+- [ ] 开屏广告
+- [ ] 激励广告
+- [ ] 横幅广告
+- [ ] 信息流广告
+- [ ] 插屏广告
 
 # How to use
 
-[B站视频讲解](https://www.bilibili.com/video/BV1HoYiejEF9/)
+[B站视频讲解](void(0))
 
 example 目录下存放的是用于展示插件功能的 Godot 项目
 
