@@ -4,105 +4,140 @@ import android.app.Activity
 import cc.zhtsu.godot_tds_plugin.GodotTdsPlugin
 import cc.zhtsu.godot_tds_plugin.StateCode
 import cc.zhtsu.godot_tds_plugin.TapTdsInterface
-import com.tapsdk.antiaddictionui.AntiAddictionUIKit
-import com.tapsdk.bootstrap.Callback
-import com.tapsdk.bootstrap.TapBootstrap
-import com.tapsdk.bootstrap.account.TDSUser
-import com.tapsdk.bootstrap.exceptions.TapError
-import com.tapsdk.tapconnect.TapConnect
-import com.taptap.sdk.TapLoginHelper
-import com.tds.achievement.TapAchievement
-import com.tds.common.entities.TapConfig
-import com.tds.common.models.TapRegionType
+import com.taptap.sdk.BuildConfig
+import com.taptap.sdk.core.TapTapRegion
+import com.taptap.sdk.core.TapTapSdk
+import com.taptap.sdk.core.TapTapSdkOptions
+import com.taptap.sdk.kit.internal.callback.TapTapCallback
+import com.taptap.sdk.kit.internal.exception.TapTapException
+import com.taptap.sdk.login.Scopes.SCOPE_PUBLIC_PROFILE
+import com.taptap.sdk.login.TapTapAccount
+import com.taptap.sdk.login.TapTapLogin
+import com.taptap.sdk.login.TapTapLogin.loginWithScopes
+
 
 class Account(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsInterface
 {
     override var _activity : Activity = activity
     override var _godotTdsPlugin : GodotTdsPlugin = godotTdsPlugin
 
-    private lateinit var _logInCallback : Callback<TDSUser>
-
     init
     {
         _initCallbacks()
     }
 
-    fun init(clientId : String, clientToken : String, serverUrl : String)
+    private lateinit var _logInCallback : TapTapCallback<TapTapAccount>
+
+    fun init(clientId : String, clientToken : String)
     {
         _activity.runOnUiThread {
-            val tdsConfig = TapConfig.Builder()
-                .withAppContext(_activity)
-                .withClientId(clientId)
-                .withClientToken(clientToken)
-                .withServerUrl(serverUrl)
-                .withRegionType(TapRegionType.CN)
-                .build()
+            val enableLog: Boolean = BuildConfig.DEBUG
 
-            TapBootstrap.init(_activity, tdsConfig)
+            val tapSdkOptions: TapTapSdkOptions = TapTapSdkOptions(
+                clientId,
+                clientToken,
+                TapTapRegion.CN
+            )
+
+            tapSdkOptions.enableLog = enableLog
+
+            TapTapSdk.init(_activity, tapSdkOptions)
         }
     }
 
     fun logIn()
     {
-        TDSUser.loginWithTapTap(_activity, _logInCallback)
+        val scopes = arrayOf<String>(SCOPE_PUBLIC_PROFILE)
+        loginWithScopes(_activity, scopes, _logInCallback);
     }
 
     fun logOut()
     {
-        if (TDSUser.currentUser() != null)
-        {
-            TDSUser.logOut()
-            AntiAddictionUIKit.exit()
-        }
+        TapTapLogin.logout()
     }
 
     fun isLoggedIn() : Boolean
     {
-        return TDSUser.currentUser() != null
+        return TapTapLogin.getCurrentTapAccount() != null;
     }
 
-    fun getUserProfile() : String
+    private fun getCurrentTapAccount() : TapTapAccount?
     {
-        return if (TDSUser.currentUser() != null)
-        {
-            TapLoginHelper.getCurrentProfile().toJsonString()
-        }
-        else
-        {
-            "{}"
-        }
+        return TapTapLogin.getCurrentTapAccount()
     }
 
-    fun getUserObjectId() : String
+    fun getCurrentTapAccountString() : String
     {
-        return if (TDSUser.currentUser() != null)
-            TDSUser.currentUser().objectId
-        else
-            "null"
+        return TapTapLogin.getCurrentTapAccount().toString()
     }
 
-    fun setEntryVisible(visible : Boolean)
+    fun getAccountOpenId() : String
     {
-        _activity.runOnUiThread {
-            TapConnect.setEntryVisible(visible)
-        }
+        val tapTapAccount = getCurrentTapAccount()
+
+        if (tapTapAccount != null)
+            return tapTapAccount.openId
+
+        return "Error: Invalid OpenId"
+    }
+
+    fun getAccountName() : String
+    {
+        val tapTapAccount = getCurrentTapAccount()
+
+        if (tapTapAccount?.name != null)
+            return tapTapAccount.name!!
+
+        return "Error: Invalid Name"
+    }
+
+    fun getAccountAvatarUrl() : String
+    {
+        val tapTapAccount = getCurrentTapAccount()
+
+        if (tapTapAccount?.avatar != null)
+            return tapTapAccount.avatar!!
+
+        return "Error: Invalid Avatar Url"
+    }
+
+    fun getAccountEmail() : String
+    {
+        val tapTapAccount = getCurrentTapAccount()
+
+        if (tapTapAccount?.email != null)
+            return tapTapAccount.email!!
+
+        return "Error: Invalid Avatar Url"
+    }
+
+    fun getAccountUnionId() : String
+    {
+        val tapTapAccount = getCurrentTapAccount()
+
+        if (tapTapAccount?.unionId != null)
+            return tapTapAccount.unionId
+
+        return "Error: Invalid UnionId"
     }
 
     fun _initCallbacks()
     {
-        _logInCallback = object : Callback<TDSUser>
+        _logInCallback = object : TapTapCallback<TapTapAccount>
         {
-            override fun onSuccess(user : TDSUser)
+            override fun onSuccess(result: TapTapAccount)
             {
-                _godotTdsPlugin.emitPluginSignal("onLogInReturn", StateCode.LOG_IN_SUCCESS, user.toJSONInfo())
-
-                // Reinit achievement data
-                TapAchievement.initData()
+                _godotTdsPlugin.emitPluginSignal("onLogInReturn", StateCode.LOG_IN_SUCCESS, result.name!!)
             }
 
-            override fun onFail(error : TapError)
+            override fun onFail(exception: TapTapException)
             {
-                _godotTdsPlugin.emitPluginSignal("onLogInReturn", error.code, error.message.toString())
+                _godotTdsPlugin.emitPluginSignal("onLogInReturn", StateCode.LOG_IN_FAIL, exception.message.toString())
+            }
+
+            override fun onCancel()
+            {
+                _godotTdsPlugin.emitPluginSignal("onLogInReturn", StateCode.LOG_IN_CANCEL, "onCancel")
             }
         }
     }
