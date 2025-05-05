@@ -77,7 +77,13 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
             isTapSDKConfigValid = false
         }
 
-        _tapAccount.init(clientId, clientToken)
+        _checkTapSdkConfig {
+            _tapAccount.init(clientId, clientToken)
+            _tapMoment.init()
+            _tapAchievement.init()
+            _tapGift.init(clientId)
+            _tapLeaderboard.init()
+        }
     }
 
     @UsedByGodot
@@ -88,12 +94,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
             isTapADNConfigValid = false
         }
 
-        _checkTapSDKConfig {
-            _tapMoment.init()
-            _tapAchievement.init()
-            _tapGift.init(clientId)
-            _tapLeaderboard.init()
-
+        _checkTapSdkConfig {
             _initAdSdk(mediaId, mediaName, mediaKey, clientId)
         }
     }
@@ -101,7 +102,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun logIn()
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapAccount.logIn()
         }
     }
@@ -109,7 +110,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun logOut()
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapAccount.logOut()
         }
     }
@@ -119,7 +120,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     {
         var userProfile = ""
 
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             userProfile = _tapAccount.getCurrentTapAccountAsString()
         }
 
@@ -131,7 +132,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     {
         var loggedIn = false
 
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             loggedIn = _tapAccount.isLoggedIn()
         }
 
@@ -141,7 +142,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun startUpCompliance()
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapCompliance.startUp()
         }
     }
@@ -149,7 +150,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun tapMoment()
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapMoment.openPage()
         }
     }
@@ -157,7 +158,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun showAchievementPage()
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapAchievement.showAchievementPage()
         }
     }
@@ -165,7 +166,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun unlockAchievement(achievementId : String)
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapAchievement.unlockAchievement(achievementId)
         }
     }
@@ -173,7 +174,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun growAchievementSteps(displayId : String, steps : Int)
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapAchievement.growAchievementSteps(displayId, steps)
         }
     }
@@ -181,7 +182,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun setShowAchievementToast(show : Boolean)
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapAchievement.setShowAchievementToast(show)
         }
     }
@@ -189,7 +190,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun submitGiftCode(giftCode : String)
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapGift.submitGiftCode(giftCode)
         }
     }
@@ -197,7 +198,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun submitLeaderboardScore(leaderboardName : String, score : Long)
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapLeaderboard.submitLeaderboardScore(leaderboardName, score)
         }
     }
@@ -205,7 +206,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun fetchLeaderboardSectionRankings(leaderboardName : String, start : Int, end : Int)
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapLeaderboard.fetchLeaderboardSectionRankings(leaderboardName, start, end)
         }
     }
@@ -213,7 +214,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun fetchLeaderboardUserAroundRankings(leaderboardName : String, count : Int)
     {
-        _checkTapSDKConfig {
+        _checkTapSdkConfig {
             _tapLeaderboard.fetchLeaderboardUserAroundRankings(leaderboardName, count)
         }
     }
@@ -240,7 +241,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun loadSplashAd(spaceId : Int)
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _splashAd.load(spaceId)
         }
     }
@@ -248,7 +249,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun showSplashAd()
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _splashAd.show()
         }
     }
@@ -256,7 +257,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun disposeSplashAd()
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _splashAd.dispose()
         }
     }
@@ -270,7 +271,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
         gameUserId : String,
     )
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _rewardVideoAd.load(spaceId, rewardName, rewardAmount, extraInfo, gameUserId)
         }
     }
@@ -278,7 +279,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun showRewardVideoAd()
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _rewardVideoAd.show()
         }
     }
@@ -286,7 +287,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun loadBannerAd(spaceId : Int)
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _bannerAd.load(spaceId)
         }
     }
@@ -294,7 +295,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun showBannerAd(gravity : Int, height : Int)
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _bannerAd.show(gravity, height)
         }
     }
@@ -302,7 +303,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun disposeBannerAd()
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _bannerAd.dispose()
         }
     }
@@ -310,7 +311,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun loadInterstitialAd(spaceId : Int)
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _interstitialAd.load(spaceId)
         }
     }
@@ -318,7 +319,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun showInterstitialAd()
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _interstitialAd.show()
         }
     }
@@ -326,7 +327,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun loadFeedAd(spaceId : Int, query : String)
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _feedAd.load(spaceId, query)
         }
     }
@@ -334,7 +335,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     @UsedByGodot
     fun showFeedAd(gravity : Int, height : Int)
     {
-        _checkTapADNConfig {
+        _checkTapAdnConfig {
             _feedAd.show(gravity, height)
         }
     }
@@ -365,7 +366,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
         }
     }
 
-    fun _checkTapSDKConfig(block : () -> Unit)
+    fun _checkTapSdkConfig(block : () -> Unit)
     {
         if (isTapSDKConfigValid)
         {
@@ -381,7 +382,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
         }
     }
 
-    fun _checkTapADNConfig(block : () -> Unit)
+    fun _checkTapAdnConfig(block : () -> Unit)
     {
         if (isTapADNConfigValid)
         {
