@@ -5,6 +5,11 @@ class StateCode
     companion object
     {
         @JvmStatic
+        val LOG_IN_FAIL : Int = 2001
+        @JvmStatic
+        val LOG_IN_CANCEL : Int = 2001
+
+        @JvmStatic
         val LOG_IN_SUCCESS : Int = 1001
         @JvmStatic
         val ACHIEVEMENT_INIT_SUCCESS : Int = 1002

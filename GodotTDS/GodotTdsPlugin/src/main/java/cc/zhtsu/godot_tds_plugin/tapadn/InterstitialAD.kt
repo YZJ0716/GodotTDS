@@ -80,6 +80,11 @@ class InterstitialAD(activity : Activity, godotTdsPlugin : GodotTdsPlugin) : Tap
             {
                 _godotTdsPlugin.emitPluginSignal("onInterstitialAdReturn", StateCode.AD_INTERSTITIAL_ERROR, "")
             }
+
+            override fun onAdValidShow()
+            {
+                TODO("Not yet implemented")
+            }
         }
     }
 }

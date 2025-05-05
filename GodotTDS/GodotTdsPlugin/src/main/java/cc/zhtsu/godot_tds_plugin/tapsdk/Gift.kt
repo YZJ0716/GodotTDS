@@ -4,7 +4,6 @@ import android.app.Activity
 import cc.zhtsu.godot_tds_plugin.GodotTdsPlugin
 import cc.zhtsu.godot_tds_plugin.StateCode
 import cc.zhtsu.godot_tds_plugin.TapTdsInterface
-import com.tapsdk.bootstrap.account.TDSUser
 import okhttp3.Call
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -39,7 +38,7 @@ class Gift(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsInterfac
         val jsonObject = JSONObject()
         val timestamp : String = (System.currentTimeMillis() / 1000).toString()
         val nonceStr : String = _generateNonceStr()
-        val objectId : String = if (TDSUser.currentUser() != null) TDSUser.currentUser().objectId else ""
+        val objectId : String = _godotTdsPlugin.getTapAccount().getAccountOpenId()
 
         try
         {

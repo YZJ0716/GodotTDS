@@ -5,6 +5,8 @@ import cc.zhtsu.godot_tds_plugin.GodotTdsPlugin
 import cc.zhtsu.godot_tds_plugin.StateCode
 import cc.zhtsu.godot_tds_plugin.TapTdsInterface
 import com.taptap.sdk.BuildConfig
+import com.taptap.sdk.achievement.options.TapTapAchievementOptions
+import com.taptap.sdk.compliance.option.TapTapComplianceOptions
 import com.taptap.sdk.core.TapTapRegion
 import com.taptap.sdk.core.TapTapSdk
 import com.taptap.sdk.core.TapTapSdkOptions
@@ -39,9 +41,23 @@ class Account(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsInter
                 TapTapRegion.CN
             )
 
+            val options = arrayOf(
+                TapTapComplianceOptions(
+                    showSwitchAccount = true,
+                    useAgeRange = false,
+                ),
+                TapTapAchievementOptions(
+                    enableToast = true
+                )
+            )
+
             tapSdkOptions.enableLog = enableLog
 
-            TapTapSdk.init(_activity, tapSdkOptions)
+            TapTapSdk.init(
+                context = _activity,
+                sdkOptions = tapSdkOptions,
+                options = options
+            )
         }
     }
 
@@ -66,7 +82,7 @@ class Account(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsInter
         return TapTapLogin.getCurrentTapAccount()
     }
 
-    fun getCurrentTapAccountString() : String
+    fun getCurrentTapAccountAsString() : String
     {
         return TapTapLogin.getCurrentTapAccount().toString()
     }

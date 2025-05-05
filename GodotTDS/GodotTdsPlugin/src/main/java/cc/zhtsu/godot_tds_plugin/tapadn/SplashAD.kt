@@ -83,6 +83,16 @@ class SplashAD(activity : Activity, godotTdsPlugin : GodotTdsPlugin) : TapTdsInt
                 _godotTdsPlugin.emitPluginSignal("onSplashAdReturn", StateCode.AD_SPLASH_CLICKED, _splashAd.toString())
             }
 
+            override fun onAdShow()
+            {
+                TODO("Not yet implemented")
+            }
+
+            override fun onAdValidShow()
+            {
+                TODO("Not yet implemented")
+            }
+
             override fun onAdSkip()
             {
                 _godotTdsPlugin.emitPluginSignal("onSplashAdReturn", StateCode.AD_SPLASH_SKIPPED, _splashAd.toString())

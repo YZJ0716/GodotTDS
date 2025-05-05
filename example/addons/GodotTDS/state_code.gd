@@ -3,6 +3,11 @@ extends Node
 
 enum
 {
+	# 登录失败
+	LOG_IN_FAIL = 2001,
+	# 取消登录
+	LOG_IN_CANCEL = 2001,
+	
 	# 登录成功
 	LOG_IN_SUCCESS = 1001,
 	# 成就数据初始化成功

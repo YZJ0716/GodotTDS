@@ -3,11 +3,13 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
-val tapSdkVersion = "3.29.2"
-val tapAdVersion = "3.16.3.31"
+val pluginName = "GodotTdsPlugin"
+val pluginPackageName = "cc.zhtsu.godot_tds_plugin"
+
+val tapAdVersion = "3.16.3.45"
 
 android {
-    namespace = "cc.zhtsu.godot_tds_plugin"
+    namespace = pluginPackageName
     compileSdk = 34
 
     defaultConfig {
@@ -48,16 +50,16 @@ dependencies {
     implementation(libs.support.v4)
     implementation(libs.glide)
     implementation(libs.recyclerview.v7)
-    compileOnly(files("libs/AntiAddiction_${tapSdkVersion}.aar"))
-    compileOnly(files("libs/AntiAddictionUI_${tapSdkVersion}.aar"))
+
     compileOnly(files("libs/TapAD_${tapAdVersion}.aar"))
-    compileOnly(files("libs/TapBootstrap_${tapSdkVersion}.aar"))
-    compileOnly(files("libs/TapCommon_${tapSdkVersion}.aar"))
-    compileOnly(files("libs/TapConnect_${tapSdkVersion}.aar"))
-    compileOnly(files("libs/TapDB_${tapSdkVersion}.aar"))
-    compileOnly(files("libs/TapLogin_${tapSdkVersion}.aar"))
-    compileOnly(files("libs/TapMoment_${tapSdkVersion}.aar"))
-    compileOnly(files("libs/TapAchievement_${tapSdkVersion}.aar"))
+
+    implementation(libs.tap.core)
+    implementation(libs.tap.kit)
+    implementation(libs.tap.compliance)
+    implementation(libs.tap.login)
+    implementation(libs.tap.moment)
+    implementation(libs.tap.achievement)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -6,6 +6,10 @@ Godot plugin for supporting TapTap Developer Services
 
 在 Godot 中使用 TapTap 开发者服务
 
+关于新版 TapSDK 的详细信息：https://developer.taptap.cn/docs/sdk/access/v3-to-v4/
+
+<font color=red>**注意事项：4.4 版本插件开发完成后尚未经过任何测试（2025.05.06）**</font>
+
 # Version
 
 - OpenJDK 17.0.11
@@ -17,27 +21,27 @@ Godot plugin for supporting TapTap Developer Services
 
 ### TapSDK
 
-- [ ] 登录
-- [ ] 合规认证
-- [ ] 内嵌动态
-- [ ] 悬浮窗
-- [ ] 成就系统
-- [ ] 礼包系统
-- [ ] 排行榜
-- [ ] 云存档
-- [ ] 深度链接
+- [x] 登录
+- [x] 合规认证
+- [x] 内嵌动态
+- [ ] ~~悬浮窗~~（v4 版本 TapSDK 暂不支持）
+- [x] 成就系统
+- [x] 礼包系统
+- [ ] ~~排行榜~~（v4 版本 TapSDK 暂不支持）
+- [ ] ~~云存档~~（v4 版本 TapSDK 暂不支持）
+- [ ] ~~深度链接~~（不支持）
 
 ### TapAD
 
-- [ ] 开屏广告
-- [ ] 激励广告
-- [ ] 横幅广告
-- [ ] 信息流广告
-- [ ] 插屏广告
+- [x] 开屏广告
+- [x] 激励广告
+- [x] 横幅广告（目前只支持竖屏显示）
+- [x] 信息流广告（目前只支持模板渲染）
+- [x] 插屏广告
 
 # How to use
 
-[B站视频讲解](void(0))
+[B站视频讲解]()
 
 example 目录下存放的是用于展示插件功能的 Godot 项目
 

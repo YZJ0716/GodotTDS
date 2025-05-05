@@ -31,6 +31,10 @@ window/size/window_width_override=375
 window/size/window_height_override=812
 window/handheld/orientation=1
 
+[dotnet]
+
+project/assembly_name="GodotTDS Example"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GodotTDS/plugin.cfg")

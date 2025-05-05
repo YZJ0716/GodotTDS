@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi
 import cc.zhtsu.godot_tds_plugin.GodotTdsPlugin
 import cc.zhtsu.godot_tds_plugin.StateCode
 import cc.zhtsu.godot_tds_plugin.TapTdsInterface
-import com.tapsdk.bootstrap.account.TDSUser
 import com.tapsdk.lc.LCLeaderboard
 import com.tapsdk.lc.LCLeaderboardResult
 import com.tapsdk.lc.LCRanking
@@ -46,7 +45,7 @@ class Leaderboard(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsI
 
     fun fetchLeaderboardUserAroundRankings(leaderboardName : String, count : Int)
     {
-        val objectId : String = if (TDSUser.currentUser() != null) TDSUser.currentUser().objectId else ""
+        val objectId : String = _godotTdsPlugin.getTapAccount().getAccountOpenId()
         val leaderboard = LCLeaderboard.createWithoutData(leaderboardName)
         val selectKeys : List<String> = listOf("nickname")
         leaderboard.getAroundResults(objectId, 0, count, selectKeys, null).subscribe(_leaderboardUserAroundRankingsObserver)

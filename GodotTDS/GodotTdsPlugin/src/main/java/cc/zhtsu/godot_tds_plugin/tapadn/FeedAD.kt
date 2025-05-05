@@ -162,6 +162,11 @@ class FeedAD(activity : Activity, godotTdsPlugin : GodotTdsPlugin) : TapTdsInter
             {
                 _godotTdsPlugin.emitPluginSignal("onFeedAdReturn", StateCode.AD_FEED_CLOSED, tapFeedAdView.toString())
             }
+
+            override fun onAdValidShow(tapFeedAdView : TapFeedAdView)
+            {
+                TODO("Not yet implemented")
+            }
         }
     }
 }

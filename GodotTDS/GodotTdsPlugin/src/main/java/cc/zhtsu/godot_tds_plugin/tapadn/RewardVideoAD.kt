@@ -33,8 +33,8 @@ class RewardVideoAD(activity : Activity, godotTdsPlugin : GodotTdsPlugin) : TapT
     {
         val adRequest = AdRequest.Builder()
             .withSpaceId(spaceId)
-            .withRewordName(rewardName)
-            .withRewordAmount(rewardAmount)
+            .withRewardName(rewardName)
+            .withRewardAmount(rewardAmount)
             .withExtra1(extraInfo)
             .withUserId(gameUserId)
             .build()
@@ -115,6 +115,11 @@ class RewardVideoAD(activity : Activity, godotTdsPlugin : GodotTdsPlugin) : TapT
             override fun onAdClick()
             {
                 _godotTdsPlugin.emitPluginSignal("onRewardVideoAdReturn", StateCode.AD_REWARD_VIDEO_CLICKED, "")
+            }
+
+            override fun onAdValidShow()
+            {
+                TODO("Not yet implemented")
             }
         }
     }

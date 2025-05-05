@@ -137,6 +137,11 @@ class BannerAD(activity : Activity, godotTdsPlugin : GodotTdsPlugin) : TapTdsInt
             {
                 _godotTdsPlugin.emitPluginSignal("onBannerAdReturn", StateCode.AD_BANNER_DOWNLOAD_CLICKED, "")
             }
+
+            override fun onAdValidShow()
+            {
+                TODO("Not yet implemented")
+            }
         }
     }
 }
