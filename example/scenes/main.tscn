@@ -231,20 +231,6 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 48
 text = "显示插屏广告"
 
-[node name="DeepLink" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 40
-text = "DeepLink"
-
 [node name="Panel" type="Panel" parent="."]
 visible = false
 anchors_preset = 8
