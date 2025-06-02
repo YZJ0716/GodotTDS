@@ -8,7 +8,7 @@ Godot plugin for supporting TapTap Developer Services
 
 关于新版 TapSDK 的详细信息：https://developer.taptap.cn/docs/sdk/access/v3-to-v4/
 
-<font color=red>**注意事项：4.4 版本插件开发完成后尚未经过任何测试（2025.05.06）**</font>
+**注意事项：4.4 版本插件开发完成后尚未经过任何测试（2025.05.06）**
 
 **[4.2.2 版本插件](https://github.com/zhtsu/GodotTDS/tree/4.2.2)**
 
