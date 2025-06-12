@@ -23,6 +23,7 @@ class Compliance(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsIn
         if (_godotTdsPlugin.isLoggedIn())
         {
             val userIdentifier = _godotTdsPlugin.getTapAccount().getAccountOpenId();
+            TapTapCompliance.registerComplianceCallback(_antiComplianceCallback)
             TapTapCompliance.startup(activity = _activity, userId = userIdentifier)
         }
     }
