@@ -48,8 +48,8 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
         )
     }
 
-    private var isTapSDKConfigValid : Boolean = true
-    private var isTapADNConfigValid : Boolean = true
+    private var _isTapSDKConfigValid : Boolean = true
+    private var _isTapADNConfigValid : Boolean = true
 
     private val _tapAccount = Account(activity!!, this)
     private val _tapCompliance = Compliance(activity!!, this)
@@ -74,7 +74,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     {
         if (clientId == "" || clientToken == "")
         {
-            isTapSDKConfigValid = false
+            _isTapSDKConfigValid = false
         }
 
         _checkTapSdkConfig {
@@ -91,7 +91,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
     {
         if (mediaId == -1L || mediaName == "" || mediaKey == "")
         {
-            isTapADNConfigValid = false
+            _isTapADNConfigValid = false
         }
 
         _checkTapSdkConfig {
@@ -368,7 +368,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
 
     fun _checkTapSdkConfig(block : () -> Unit)
     {
-        if (isTapSDKConfigValid)
+        if (_isTapSDKConfigValid)
         {
             block()
         }
@@ -384,7 +384,7 @@ class GodotTdsPlugin(godot : Godot) : GodotPlugin(godot)
 
     fun _checkTapAdnConfig(block : () -> Unit)
     {
-        if (isTapADNConfigValid)
+        if (_isTapADNConfigValid)
         {
             block()
         }

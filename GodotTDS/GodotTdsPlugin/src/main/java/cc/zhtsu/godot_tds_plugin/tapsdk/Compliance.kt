@@ -11,19 +11,20 @@ class Compliance(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsIn
     override var _activity : Activity = activity
     override var _godotTdsPlugin : GodotTdsPlugin = godotTdsPlugin
 
-    private lateinit var _antiComplianceCallback : TapTapComplianceCallback
+    private lateinit var _complianceCallback : TapTapComplianceCallback
 
     init
     {
         _initCallbacks()
+
+        TapTapCompliance.registerComplianceCallback(_complianceCallback)
     }
 
     fun startUp()
     {
         if (_godotTdsPlugin.isLoggedIn())
         {
-            val userIdentifier = _godotTdsPlugin.getTapAccount().getAccountOpenId();
-            TapTapCompliance.registerComplianceCallback(_antiComplianceCallback)
+            val userIdentifier = _godotTdsPlugin.getTapAccount().getAccountOpenId()
             TapTapCompliance.startup(activity = _activity, userId = userIdentifier)
         }
     }
@@ -32,7 +33,7 @@ class Compliance(activity : Activity, godotTdsPlugin: GodotTdsPlugin) : TapTdsIn
     {
         // https://developer.taptap.cn/docs/sdk/anti-addiction/guide/
 
-        _antiComplianceCallback = object : TapTapComplianceCallback
+        _complianceCallback = object : TapTapComplianceCallback
         {
             override fun onComplianceResult(code: Int, extra: Map<String, Any>?)
             {
